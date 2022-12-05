@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import CanvasJSReact from "../../assets/canvasjs/canvasjs.react";
 
-var CanvasJS = CanvasJSReact.CanvasJS;
+// var CanvasJS = CanvasJSReact.CanvasJS;
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 var dps = []; //dataPoints.
 var xVal = dps.length + 1;
