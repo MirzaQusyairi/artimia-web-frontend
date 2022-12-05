@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Col, Row } from "antd";
 import amons from "../../assets/icon/amons.svg";
 import "./index.css";
 import LiveMonitoring from "../../components/LiveMonitoring";
-import mqtt from "mqtt";
+// import mqtt from "mqtt";
 
 export default function Home() {
   return (
