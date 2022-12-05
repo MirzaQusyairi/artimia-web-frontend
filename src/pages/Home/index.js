@@ -1,85 +1,63 @@
-import React, { useEffect, useRef, useState } from "react";
+import React from "react";
 import { Col, Row } from "antd";
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend,
-} from "chart.js";
-import { Line } from "react-chartjs-2";
-import { faker } from "@faker-js/faker";
 import amons from "../../assets/icon/amons.svg";
 import "./index.css";
-
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend
-);
+import LiveMonitoring from "../../components/LiveMonitoring";
 
 export default function Home() {
-  const chartReference = useRef();
-  const [number, setNumber] = useState([]);
-  const [dataX, setDataX] = useState([]);
-  const [data, setData] = useState({
-    labels: [],
-    datasets: [
-      {
-        // data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
-        data: [],
-        borderColor: "rgb(255, 99, 132)",
-        backgroundColor: "rgba(255, 99, 132, 0.5)",
-      },
-    ],
-  });
+  // const chartReference = useRef();
 
-  setInterval(() => {
-    const chart = chartReference.current;
+  // const [data, setData] = useState({
+  //   labels: [],
+  //   datasets: [
+  //     {
+  //       // data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
+  //       data: [],
+  //       borderColor: "rgb(255, 99, 132)",
+  //       backgroundColor: "rgba(255, 99, 132, 0.5)",
+  //     },
+  //   ],
+  // });
 
-    chart.data.datasets[0].data.push(Math.random() * (3 - -3) + -3);
-    chart.data.labels.push(chart.data.labels.length + 1);
-    // setInterval(() => {
+  // setInterval(() => {
+  //   const chart = chartReference.current;
 
-    // }, 2000);
-    chart.update();
-  }, 100);
+  //   chart.data.datasets[0].data.push(Math.random() * (3 - -3) + -3);
+  //   chart.data.labels.push(chart.data.labels.length + 1);
+  //   // setInterval(() => {
 
-  setInterval(() => {
-    const chart = chartReference.current;
+  //   // }, 2000);
+  //   chart.update();
+  // }, 100);
 
-    chart.data.datasets[0].data.shift();
-    chart.data.labels.shift();
+  // setInterval(() => {
+  //   const chart = chartReference.current;
 
-    chart.update();
-  }, 150);
+  //   chart.data.datasets[0].data.shift();
+  //   chart.data.labels.shift();
 
-  const options = {
-    responsive: true,
-    elements: {
-      line: {
-        tension: 0.1,
-      },
-      point: {
-        radius: 0,
-      },
-    },
-    plugins: {
-      legend: {
-        display: false,
-      },
-      title: {
-        display: false,
-      },
-    },
-  };
+  //   chart.update();
+  // }, 150);
+
+  // const options = {
+  //   responsive: true,
+  //   elements: {
+  //     line: {
+  //       tension: 0.1,
+  //     },
+  //     point: {
+  //       radius: 0,
+  //     },
+  //   },
+  //   plugins: {
+  //     legend: {
+  //       display: false,
+  //     },
+  //     title: {
+  //       display: false,
+  //     },
+  //   },
+  // };
 
   return (
     <Row className="container">
@@ -104,12 +82,13 @@ export default function Home() {
         <Row className="content">
           <Col span={19}>
             <Row justify="center">
-              <Line
+              {/* <Line
                 options={options}
                 ref={chartReference}
                 data={data}
                 height={150}
-              />
+              /> */}
+              <LiveMonitoring />
             </Row>
           </Col>
           <Col span={5} className="table-status">
