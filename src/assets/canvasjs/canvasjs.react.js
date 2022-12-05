@@ -1,13 +1,12 @@
-﻿/*
-CanvasJS React Charts - https://canvasjs.com/
-Copyright 2022 fenopix
+﻿// /*
+// CanvasJS React Charts - https://canvasjs.com/
+// Copyright 2022 fenopix
 
---------------------- License Information --------------------
-CanvasJS is a commercial product which requires purchase of license. Without a commercial license you can use it for evaluation purposes for upto 30 days. Please refer to the following link for further details.
-https://canvasjs.com/license/
+// --------------------- License Information --------------------
+// CanvasJS is a commercial product which requires purchase of license. Without a commercial license you can use it for evaluation purposes for upto 30 days. Please refer to the following link for further details.
+// https://canvasjs.com/license/
 
-*/
-/* eslint-disable no-debugger, no-console */
+// */
 var React = require("react");
 var CanvasJS = require("./canvasjs.min");
 CanvasJS = CanvasJS.Chart ? CanvasJS : window.CanvasJS;
@@ -63,4 +62,3 @@ var CanvasJSReact = {
 };
 
 export default CanvasJSReact;
-/* eslint-enable no-alert, no-console */
