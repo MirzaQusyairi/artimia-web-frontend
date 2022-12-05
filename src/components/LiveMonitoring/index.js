@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import CanvasJSReact from "../../assets/canvasjs/canvasjs.react";
+import { dataECG } from "../../data/ECGSignal";
 
 // var CanvasJS = CanvasJSReact.CanvasJS;
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 var dps = []; //dataPoints.
 var xVal = dps.length + 1;
 var yVal = 0;
-var updateInterval = 500;
+var updateInterval = 200;
 
 export default class LiveMonitoring extends Component {
   constructor() {
@@ -19,10 +20,11 @@ export default class LiveMonitoring extends Component {
   }
 
   updateChart() {
-    yVal = Math.random() * (3 - -3) + -3;
+    yVal = dataECG[xVal];
+    // yVal = xVal % 10 === 0 ? Math.random() * (3 - -3) + -3 : 0.16;
     dps.push({ x: xVal, y: yVal });
     xVal++;
-    if (dps.length > 30) {
+    if (dps.length > 200) {
       dps.shift();
     }
     this.chart.render();
