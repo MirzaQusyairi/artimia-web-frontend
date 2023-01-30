@@ -9,6 +9,7 @@ import Product from "./pages/Product";
 import NewProduct from "./pages/NewProduct";
 import User from "./pages/User";
 import "./App.css";
+import Detail from "./pages/Detail";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="/newProduct" element={<NewProduct />} />
         <Route path="/analytics" element={<Analytics />} />
         <Route path="/live" element={<LiveMonitoring />} />
+        <Route path="/detail/:id" element={<Detail />} />
       </Routes>
     </BrowserRouter>
   );
