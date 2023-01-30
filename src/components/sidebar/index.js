@@ -11,9 +11,9 @@ import {
   Timeline,
   TrendingUp,
   WorkOutline,
-} from "@material-ui/icons";
+} from "@mui/icons-material";
 import React from "react";
-import "./sidebar.css";
+import "./index.css";
 import { Link } from "react-router-dom";
 
 export const Sidebar = () => {

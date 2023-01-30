@@ -8,6 +8,7 @@ import ProductList from "./pages/ProductList";
 import Product from "./pages/Product";
 import NewProduct from "./pages/NewProduct";
 import User from "./pages/User";
+import "./App.css";
 
 function App() {
   return (

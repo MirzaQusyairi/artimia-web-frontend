@@ -1,6 +1,6 @@
-import { ArrowDownward, ArrowUpward } from "@material-ui/icons";
+import { ArrowDownward, ArrowUpward } from "@mui/icons-material";
 import React from "react";
-import "./FeaturedInfo.css";
+import "./index.css";
 const FeaturedInfo = () => {
   return (
     <div className="featured">
