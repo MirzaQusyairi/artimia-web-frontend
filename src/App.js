@@ -8,6 +8,8 @@ import ProductList from "./pages/ProductList";
 import Product from "./pages/Product";
 import NewProduct from "./pages/NewProduct";
 import User from "./pages/User";
+import SignIn from "./pages/SignIn";
+import SignUp from "./pages/SignUp";
 import "./App.css";
 import Detail from "./pages/Detail";
 import Dashboard from "./pages/Dashboard";
@@ -17,6 +19,8 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/signin" element={<SignIn />} />
+        <Route path="/signup" element={<SignUp />} />
         <Route path="/users" element={<UserList />} />
         <Route path="/user/:id" element={<User />} />
         <Route path="/newUser" element={<NewUser />} />

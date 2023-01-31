@@ -1,9 +1,9 @@
 import React from "react";
-import Chart from "../../components/Chart";
-import FeaturedInfo from "../../components/FeaturedInfo";
+import Chart from "../../components/chart";
+import FeaturedInfo from "../../components/featuredInfo";
 import Navbar from "../../components/Navbar";
-import WidgetLg from "../../components/WidgetLg";
-import WidgetSm from "../../components/WidgetSm";
+import WidgetLg from "../../components/widgetLg";
+import WidgetSm from "../../components/widgetSm";
 import { userData } from "../../dummyData";
 import "./index.css";
 

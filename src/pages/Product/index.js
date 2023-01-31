@@ -1,7 +1,7 @@
 import { Publish } from "@mui/icons-material";
 import React from "react";
 import { Link } from "react-router-dom";
-import Chart from "../../components/Chart";
+import Chart from "../../components/chart";
 import { productData } from "../../dummyData";
 import "./index.css";
 const Product = () => {
