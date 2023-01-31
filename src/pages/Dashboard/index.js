@@ -1,13 +1,17 @@
 import { Button, Col, Row, Space, Table } from "antd";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import FormInputDataPasien from "../../components/FormInputDataPasien";
+import FormUploadDataCSV from "../../components/FormUploadDataCSV";
 import Navbar from "../../components/Navbar";
 
 export default function Dashboard() {
   const [data, setData] = useState([]);
+  const [dataPasien, setDataPasien] = useState(null);
   const [isOpenModalInputDataPasien, setIsOpenModalInputDataPasien] =
     useState(false);
+  const [isOpenModalUpload, setIsOpenModalUpload] = useState(false);
   const [refreshKey, setRefreshKey] = useState(0);
 
   const columns = [
@@ -41,9 +45,22 @@ export default function Dashboard() {
       key: "action",
       render: (_, record) => (
         <Space size="middle">
-          <Button>Detail</Button>
-          <Button>Upload CSV</Button>
-          <Button>Realtime Monitoring</Button>
+          <Button>
+            <Link to={`/detail/${record.id}`}>Detail</Link>
+          </Button>
+          <Button
+            onClick={() => {
+              setDataPasien(record);
+              setIsOpenModalUpload(true);
+            }}
+          >
+            Upload CSV
+          </Button>
+          <Button>
+            <Link to={`/live-monitoring/${record.id}`}>
+              Realtime Monitoring
+            </Link>
+          </Button>
         </Space>
       ),
     },
@@ -51,9 +68,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_BASE_URL}/api/patient`, {
-        headers: { "Access-Control-Allow-Origin": "*" },
-      })
+      .get(`${process.env.REACT_APP_BASE_URL}/api/patient`)
       .then((response) => setData(response.data.data))
       .catch((err) => console.log(err));
   }, [refreshKey]);
@@ -77,6 +92,16 @@ export default function Dashboard() {
       <FormInputDataPasien
         isOpen={isOpenModalInputDataPasien}
         onCancel={() => setIsOpenModalInputDataPasien(false)}
+        fetch={() => setRefreshKey((oldKey) => oldKey + 1)}
+      />
+
+      <FormUploadDataCSV
+        isOpen={isOpenModalUpload}
+        onCancel={() => {
+          setDataPasien(null);
+          setIsOpenModalUpload(false);
+        }}
+        data={dataPasien ? dataPasien : null}
         fetch={() => setRefreshKey((oldKey) => oldKey + 1)}
       />
     </>

@@ -22,13 +22,21 @@ export default function FormInputDataPasien(props) {
     form.validateFields().then((values) => {
       form.resetFields();
 
+      const formDataPasien = new FormData();
+      formDataPasien.append("nama", values.nama);
+      formDataPasien.append("jenis_kelamin", values.jenisKelamin);
+      formDataPasien.append("umur", values.umur);
+      formDataPasien.append(
+        "tanggal_lahir",
+        moment(values.tanggalLahir).format("YYYY-MM-DD")
+      );
+      formDataPasien.append("kondisi_kesehatan", values.kondisiKesehatan);
+
       axios
-        .post(`${process.env.REACT_APP_BASE_URL}/api/patient`, {
-          nama: values.nama,
-          jenis_kelamin: values.jenisKelamin,
-          umur: values.umur,
-          tanggal_lahir: moment(values.tanggalLahir).format("YYYY-MM-DD"),
-          kondisi_kesehatan: values.kondisiKesehatan,
+        .post(`${process.env.REACT_APP_BASE_URL}/api/patient`, formDataPasien, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
         })
         .then((response) => {
           console.log(response);

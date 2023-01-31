@@ -1,6 +1,8 @@
+import { Button, Row } from "antd";
 import React, { Component } from "react";
 import CanvasJSReact from "../../assets/canvasjs/canvasjs.react";
 import { dataECG } from "../../data/ECGSignal";
+import Navbar from "../Navbar";
 
 // var CanvasJS = CanvasJSReact.CanvasJS;
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
@@ -44,7 +46,18 @@ export default class LiveMonitoring extends Component {
       ],
     };
     return (
-      <CanvasJSChart options={options} onRef={(ref) => (this.chart = ref)} />
+      <>
+        <Navbar />
+        <Row justify="center" align="middle" style={{ marginTop: 50 }}>
+          <CanvasJSChart
+            options={options}
+            onRef={(ref) => (this.chart = ref)}
+          />
+        </Row>
+        <Row justify="center" align="middle" style={{ marginTop: 100 }}>
+          <Button>Normal</Button>
+        </Row>
+      </>
     );
   }
 }
