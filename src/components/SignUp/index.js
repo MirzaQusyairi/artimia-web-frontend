@@ -2,6 +2,7 @@ import { React, useState } from 'react';
 import { useNavigate } from 'react-router'
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import swal from 'sweetalert';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -72,13 +73,13 @@ export default function SignUpSide() {
       console.log(response);
 
       setLoading(false);
-      alert("Berhasil mendaftar")
+      swal("Success", "Akun berhasil dibuat", "success");
       navigate("/");
     })
     .catch((err) => {
       console.log(err.response);
       setLoading(false);
-      alert("Gagal mendaftar")
+      swal("Error", "Pendaftaran akun gagal!", "error");
     });
   };
 
@@ -126,7 +127,6 @@ export default function SignUpSide() {
                 label="Nama Lengkap"
                 name="name"
                 autoComplete="email"
-                autoFocus
                 onChange={onChange}
               />
               <TextField
