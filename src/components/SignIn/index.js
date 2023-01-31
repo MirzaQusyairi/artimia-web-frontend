@@ -1,13 +1,14 @@
 import { React, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router'
+import { Link } from 'react-router-dom';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
+// import Link from '@mui/material/Link';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -22,7 +23,7 @@ function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
-      <Link color="inherit" href="#">
+      <Link to="#" className='link-to'>
         AMons
       </Link>{' '}
       {new Date().getFullYear()}
@@ -73,12 +74,6 @@ export default function SignInSide() {
       setLoading(false);
       alert("Email atau password salah")
     });
-
-    // const data = new FormData(e.currentTarget);
-    // console.log({
-    //   email: data.get('email'),
-    //   password: data.get('password'),
-    // });
   };
 
   return (
@@ -114,7 +109,7 @@ export default function SignInSide() {
               <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
-              Sign In
+              Login to Your Account
             </Typography>
             <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
               <TextField
@@ -158,7 +153,7 @@ export default function SignInSide() {
                   </Link> */}
                 </Grid>
                 <Grid item>
-                  <Link href="/signup" variant="body2">
+                  <Link to="/register" className='link-to'>
                     {"Don't have an account? Sign Up"}
                   </Link>
                 </Grid>

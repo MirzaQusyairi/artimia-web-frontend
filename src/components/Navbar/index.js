@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useNavigate } from 'react-router'
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -18,6 +19,7 @@ const pages = ["Pasien"];
 const settings = ["Logout"];
 
 export default function Navbar() {
+  const navigate = useNavigate()
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const fullname = localStorage.getItem("fullname");
@@ -40,7 +42,7 @@ export default function Navbar() {
   const handleProfile = (menu) => {
     if (menu === "Logout") {
       localStorage.clear();
-      window.location.href = "/";
+      navigate("/")
     }
   }
 
