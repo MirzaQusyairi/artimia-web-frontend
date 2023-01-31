@@ -10,6 +10,7 @@ import NewProduct from "./pages/NewProduct";
 import User from "./pages/User";
 import "./App.css";
 import Detail from "./pages/Detail";
+import Dashboard from "./pages/Dashboard";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         <Route path="/analytics" element={<Analytics />} />
         <Route path="/live" element={<LiveMonitoring />} />
         <Route path="/detail/:id" element={<Detail />} />
+        <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
     </BrowserRouter>
   );
