@@ -1,22 +1,27 @@
-import * as React from 'react';
+import { React, useState } from 'react';
+import { useNavigate } from 'react-router'
+import { Link } from 'react-router-dom';
+import axios from 'axios';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import Link from '@mui/material/Link';
+// import Link from '@mui/material/Link';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
+import CircularProgress from '@mui/material/CircularProgress';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import ImageBackground from '../../assets/images/ecg_heart.jpg';
+import './index.css';
 
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
-      <Link color="inherit" href="#">
+      <Link to="#" className='link-to'>
         AMons
       </Link>{' '}
       {new Date().getFullYear()}
@@ -28,12 +33,46 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignUpSide() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
+  const navigate = useNavigate()
+
+  const [input, setInput] = useState({
+    name:"",
+    email: "",
+    password: ""
+  })
+
+  const [loading, setLoading] = useState(false)
+
+  const onChange = (e) => {
+    if (e.target) {
+      setInput({
+        ...input,
+        [e.target.name]: e.target.value
+      })
+    }
+  }
+
+  const handleSubmit = (e) => {
+    setLoading(true)
+    e.preventDefault();
+
+    const formLogin = new FormData();
+    formLogin.append("email", input.email);
+    formLogin.append("password", input.password);
+    formLogin.append("nama_lengkap", input.name);
+
+    axios.post(`${process.env.REACT_APP_BASE_URL}/api/register`, formLogin)
+    .then((response) => {
+      console.log(response);
+
+      setLoading(false);
+      alert("Berhasil mendaftar")
+      navigate("/");
+    })
+    .catch((err) => {
+      console.log(err.response);
+      setLoading(false);
+      alert("Gagal mendaftar")
     });
   };
 
@@ -82,6 +121,7 @@ export default function SignUpSide() {
                 name="name"
                 autoComplete="email"
                 autoFocus
+                onChange={onChange}
               />
               <TextField
                 margin="normal"
@@ -91,6 +131,7 @@ export default function SignUpSide() {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
+                onChange={onChange}
               />
               <TextField
                 margin="normal"
@@ -101,6 +142,7 @@ export default function SignUpSide() {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                onChange={onChange}
               />
               <Button
                 type="submit"
@@ -108,14 +150,14 @@ export default function SignUpSide() {
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
               >
-                Create Account
+                {loading ? <CircularProgress color="inherit"/> : "Create Account"}
               </Button>
               <Grid container>
                 <Grid item xs>
                   
                 </Grid>
                 <Grid item>
-                  <Link href="#" variant="body2">
+                  <Link to="/" className='link-to'>
                     {"Already have an account? Sign In"}
                   </Link>
                 </Grid>
