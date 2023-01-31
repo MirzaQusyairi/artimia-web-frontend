@@ -63,12 +63,12 @@ export default function SignUpSide() {
     setLoading(true)
     e.preventDefault();
 
-    const formLogin = new FormData();
-    formLogin.append("email", input.email);
-    formLogin.append("password", input.password);
-    formLogin.append("nama_lengkap", input.name);
+    const formRegister = new FormData();
+    formRegister.append("email", input.email);
+    formRegister.append("password", input.password);
+    formRegister.append("nama_lengkap", input.name);
 
-    axios.post(`${process.env.REACT_APP_BASE_URL}/api/register`, formLogin)
+    axios.post(`${process.env.REACT_APP_BASE_URL}/api/register`, formRegister)
     .then((response) => {
       console.log(response);
 
