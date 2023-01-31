@@ -6,6 +6,8 @@ import NewUser from "./pages/NewUser";
 import ProductList from "./pages/ProductList";
 import NewProduct from "./pages/NewProduct";
 import User from "./pages/User";
+import SignIn from "./pages/SignIn";
+import SignUp from "./pages/SignUp";
 import Detail from "./pages/Detail";
 import Dashboard from "./pages/Dashboard";
 import "./App.css";
@@ -14,8 +16,8 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* <Route path="/" element={<Login />} /> */}
-        {/* <Route path="/register" element={<Register />} /> */}
+        <Route path="/" element={<SignIn />} />
+        <Route path="/signup" element={<SignUp />} />
         <Route path="/users" element={<UserList />} />
         <Route path="/user/:id" element={<User />} />
         <Route path="/newUser" element={<NewUser />} />

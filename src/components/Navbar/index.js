@@ -12,6 +12,7 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
+import './index.css';
 
 const pages = ["Pasien"];
 const settings = ["Logout"];
@@ -19,6 +20,7 @@ const settings = ["Logout"];
 export default function Navbar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const fullname = localStorage.getItem("fullname");
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -34,6 +36,13 @@ export default function Navbar() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
+  const handleProfile = (menu) => {
+    if (menu === "Logout") {
+      localStorage.clear();
+      window.location.href = "/";
+    }
+  }
 
   return (
     <AppBar position="static">
@@ -125,7 +134,8 @@ export default function Navbar() {
             ))}
           </Box>
 
-          <Box sx={{ flexGrow: 0 }}>
+          <Box sx={{ flexGrow: 0, flexDirection:'row', display:'flex' }}>
+            <p className="fullname">{fullname}</p>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
@@ -149,10 +159,11 @@ export default function Navbar() {
             >
               {settings.map((setting) => (
                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
+                  <Typography textAlign="center" onClick={()=>handleProfile(setting)}>{setting}</Typography>
                 </MenuItem>
               ))}
             </Menu>
+            
           </Box>
         </Toolbar>
       </Container>
