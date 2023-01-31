@@ -7,6 +7,8 @@ import Navbar from "../Navbar";
 // var CanvasJS = CanvasJSReact.CanvasJS;
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 var dps = []; //dataPoints.
+var xAxisStripLinesArray = [];
+var yAxisStripLinesArray = [];
 var xVal = dps.length + 1;
 var yVal = 0;
 var updateInterval = 200;
@@ -37,10 +39,27 @@ export default class LiveMonitoring extends Component {
       title: {
         text: "",
       },
+      axisY:{
+      	stripLines:yAxisStripLinesArray,
+        gridThickness: 2,
+        gridColor:"#DC74A5",
+        lineColor:"#DC74A5",
+        tickColor:"#DC74A5",
+        labelFontColor:"#DC74A5",        
+      },
+      axisX:{
+      	stripLines:xAxisStripLinesArray,
+        gridThickness: 2,
+        gridColor:"#DC74A5",
+        lineColor:"#DC74A5",
+        tickColor:"#DC74A5",
+        labelFontColor:"#DC74A5",
+      },
       data: [
         {
           type: "spline",
           markerSize: 0,
+          color:"black",
           dataPoints: dps,
         },
       ],

@@ -4,7 +4,7 @@ import SignUpSide from "../../components/SignUp";
 const SignUp = () => {
   
   return (
-    <div className="SignIn">
+    <div className="SignUp">
         <SignUpSide />
     </div>
   );
