@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import SignUpSide from "../../components/SignUp";
 
 const SignUp = () => {

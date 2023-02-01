@@ -2,6 +2,7 @@ import { React, useState } from 'react';
 import { useNavigate } from 'react-router'
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import swal from 'sweetalert';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -11,10 +12,12 @@ import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import CircularProgress from '@mui/material/CircularProgress';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import ImageBackground from '../../assets/images/ecg_heart.jpg';
+import { IconButton, InputAdornment } from '@mui/material';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 import './index.css';
 
 function Copyright(props) {
@@ -33,7 +36,12 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignUpSide() {
+
   const navigate = useNavigate()
+  const [loading, setLoading] = useState(false)
+  const [showPassword, setShowPassword] = useState(false);
+  const handleClickShowPassword = () => setShowPassword(!showPassword);
+  const handleMouseDownPassword = () => setShowPassword(!showPassword);
 
   const [input, setInput] = useState({
     name:"",
@@ -41,7 +49,6 @@ export default function SignUpSide() {
     password: ""
   })
 
-  const [loading, setLoading] = useState(false)
 
   const onChange = (e) => {
     if (e.target) {
@@ -56,23 +63,23 @@ export default function SignUpSide() {
     setLoading(true)
     e.preventDefault();
 
-    const formLogin = new FormData();
-    formLogin.append("email", input.email);
-    formLogin.append("password", input.password);
-    formLogin.append("nama_lengkap", input.name);
+    const formRegister = new FormData();
+    formRegister.append("email", input.email);
+    formRegister.append("password", input.password);
+    formRegister.append("nama_lengkap", input.name);
 
-    axios.post(`${process.env.REACT_APP_BASE_URL}/api/register`, formLogin)
+    axios.post(`${process.env.REACT_APP_BASE_URL}/api/register`, formRegister)
     .then((response) => {
       console.log(response);
 
       setLoading(false);
-      alert("Berhasil mendaftar")
+      swal("Success", "Akun berhasil dibuat", "success");
       navigate("/");
     })
     .catch((err) => {
       console.log(err.response);
       setLoading(false);
-      alert("Gagal mendaftar")
+      swal("Error", "Pendaftaran akun gagal!", "error");
     });
   };
 
@@ -106,12 +113,12 @@ export default function SignUpSide() {
             }}
           >
             <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-              <LockOutlinedIcon />
+              <AppRegistrationIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
               Create Your Account
             </Typography>
-            <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
+            <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
               <TextField
                 margin="normal"
                 required
@@ -120,7 +127,6 @@ export default function SignUpSide() {
                 label="Nama Lengkap"
                 name="name"
                 autoComplete="email"
-                autoFocus
                 onChange={onChange}
               />
               <TextField
@@ -139,10 +145,23 @@ export default function SignUpSide() {
                 fullWidth
                 name="password"
                 label="Password"
-                type="password"
+                type={showPassword ? "text" : "password"}
                 id="password"
                 autoComplete="current-password"
                 onChange={onChange}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword}
+                        onMouseDown={handleMouseDownPassword}
+                      >
+                        {showPassword ? <Visibility /> : <VisibilityOff />}
+                      </IconButton>
+                    </InputAdornment>
+                  )
+                }}
               />
               <Button
                 type="submit"

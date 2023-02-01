@@ -2,6 +2,7 @@ import { React, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router'
 import { Link } from 'react-router-dom';
+import swal from 'sweetalert';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -17,6 +18,8 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import ImageBackground from '../../assets/images/ecg_heart.jpg';
+import { IconButton, InputAdornment } from '@mui/material';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 import './index.css';
 
 function Copyright(props) {
@@ -35,14 +38,17 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignInSide() {
+
   const navigate = useNavigate()
+  const [loading, setLoading] = useState(false)
+  const [showPassword, setShowPassword] = useState(false)
+  const handleClickShowPassword = () => setShowPassword(!showPassword)
+  const handleMouseDownPassword = () => setShowPassword(!showPassword)
 
   const [input, setInput] = useState({
     email: "",
     password: ""
   })
-
-  const [loading, setLoading] = useState(false)
 
   const onChange = (e) => {
     if (e.target) {
@@ -55,25 +61,22 @@ export default function SignInSide() {
 
   const handleSubmit = (e) => {
     setLoading(true)
-    e.preventDefault();
+    e.preventDefault()
 
-    const formLogin = new FormData();
-    formLogin.append("email", input.email);
-    formLogin.append("password", input.password);
+    const formLogin = new FormData()
+    formLogin.append("email", input.email)
+    formLogin.append("password", input.password)
 
     axios.post(`${process.env.REACT_APP_BASE_URL}/api/login`, formLogin)
     .then((response) => {
-      console.log(response);
-
       setLoading(false);
       localStorage.setItem("fullname", response.data.data.nama_lengkap)
-      navigate("/dashboard");
+      navigate("/dashboard")
     })
     .catch((err) => {
-      console.log(err.response);
-      setLoading(false);
-      alert("Email atau password salah")
-    });
+      setLoading(false)
+      swal("Error", "Email atau password salah!", "error")
+    })
   };
 
   return (
@@ -111,7 +114,7 @@ export default function SignInSide() {
             <Typography component="h1" variant="h5">
               Login to Your Account
             </Typography>
-            <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
+            <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
               <TextField
                 margin="normal"
                 required
@@ -120,7 +123,6 @@ export default function SignInSide() {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
-                autoFocus
                 onChange={onChange}
               />
               <TextField
@@ -129,10 +131,23 @@ export default function SignInSide() {
                 fullWidth
                 name="password"
                 label="Password"
-                type="password"
+                type={showPassword ? "text" : "password"}
                 id="password"
                 autoComplete="current-password"
                 onChange={onChange}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword}
+                        onMouseDown={handleMouseDownPassword}
+                      >
+                        {showPassword ? <Visibility /> : <VisibilityOff />}
+                      </IconButton>
+                    </InputAdornment>
+                  )
+                }}
               />
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
